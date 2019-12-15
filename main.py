@@ -7,11 +7,13 @@ from xml.etree import ElementTree
 
 from PIL import Image
 
-INPUT_IMAGE_DIR = "D:\darknet\darknet-master\VOCdevkit\VOC2007\JPEGImages"
-INPUT_ANNO_DIR = "D:\darknet\darknet-master\VOCdevkit\VOC2007\Annotations"
-INFO_DIR = "D:\darknet\infopic"
-OUTPUT_IMAGE_DIR = "D:\darknet\darknet-master\VOCdevkit\VOC2020\JPEGImages"
-OUTPUT_ANNO_DIR = "D:\darknet\darknet-master\VOCdevkit\VOC2020\Annotations"
+INFO_DIR = "D:/darknet/infopic/"
+
+INPUT_IMAGE_DIR = "D:/darknet/darknet-master/VOCdevkit/VOC2007/JPEGImages/"
+INPUT_ANNO_DIR = "D:/darknet/darknet-master/VOCdevkit/VOC2007/Annotations/"
+
+OUTPUT_IMAGE_DIR = "D:/darknet/darknet-master/VOCdevkit/VOC2020/JPEGImages/"
+OUTPUT_ANNO_DIR = "D:/darknet/darknet-master/VOCdevkit/VOC2020/Annotations/"
 
 
 def readXML(xmlfile):
@@ -116,7 +118,7 @@ def updateXML(domTree, newimg, newxml, xmin, ymin, xmax, ymax):
     rootNode.appendChild(object_node)
 
     with open(newxml, 'w') as f:
-        domTree.writexml(f, indent='\t', addindent='\t', newl="\n", encoding="uft-8")
+        domTree.writexml(f, indent='\t', addindent='\t', newl="\n")
     _resetXMLfile(newxml)
 
 
@@ -175,9 +177,9 @@ if __name__ == '__main__':
         addimg = addimgs[i]
         i = (i + 1) % len(addimgs)
         imgname = os.path.split(inputimg)[-1][:-4]
-        xmlpath = os.path.join(INPUT_ANNO_DIR, imgname + ".xml")
-        newxml = os.path.join(OUTPUT_ANNO_DIR, imgname + ".xml")
-        outputomg = os.path.join(OUTPUT_IMAGE_DIR, imgname + ".jpg")
+        xmlpath = INPUT_ANNO_DIR + imgname + ".xml"
+        newxml = OUTPUT_ANNO_DIR + imgname + ".xml"
+        outputomg = OUTPUT_IMAGE_DIR + imgname + ".jpg"
 
         domTree, xmin, ymin, xmax, ymax = readXML(xmlpath)
         xinfo, yinfo, hinfo = compute_info_size(int(xmin), int(ymin), int(xmax), int(ymax))
